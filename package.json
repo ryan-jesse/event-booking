@@ -8,6 +8,7 @@
     "test": "nx test",
     "docker-start": "docker-compose -f apps/api/docker.yaml up",
     "docker-stop": "docker-compose -f apps/api/docker.yaml stop"
+    "start-api": "npm run start api"
   },
   "private": true,
   "dependencies": {

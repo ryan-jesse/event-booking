@@ -1,7 +1,6 @@
-import * as express from 'express';
 import { Message } from '@event-booking/api-interfaces';
 
-const app = express();
+import { app } from "./app/app";
 
 const greeting: Message = { message: 'Welcome to api!' };
 
