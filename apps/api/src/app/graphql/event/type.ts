@@ -1,4 +1,5 @@
 import { GraphQLID, GraphQLInt, GraphQLString, GraphQLNonNull, GraphQLObjectType } from 'graphql'
+import { ListEventBookings } from "../booking/query";
 
 export const Event = new GraphQLObjectType({
   name: 'Event',
@@ -19,6 +20,9 @@ export const Event = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: 'The event start date time',
       resolve: (event) => event.start
+    },
+    bookings: {
+      ...ListEventBookings
     }
   })
 });
