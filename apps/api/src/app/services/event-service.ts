@@ -1,7 +1,7 @@
 import moment from "moment";
 
 import { getEvents, getEvent, Event } from "../repositories/event";
-import { Booking, getBooking, getBookingsByEvent, insertBooking } from "../repositories/booking";
+import { Booking, cancelBooking, getBooking, getBookingsByEvent, insertBooking } from "../repositories/booking";
 
 export class EventService {
   static getEvents(): Promise<Event[]> {
@@ -44,6 +44,10 @@ export class EventService {
   static canCancelBooking(startDateTime: string) {
     const startMinus2Days = moment(startDateTime).subtract(48, "hours");
     return moment() < startMinus2Days;
+  }
+
+  static cancelBooking(bookingId: number) {
+    return cancelBooking(bookingId);
   }
 
   static getBooking(id: number): Promise<Booking> {

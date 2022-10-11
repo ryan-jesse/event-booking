@@ -8,3 +8,7 @@ export const createBooking = async (eventId: number, firstName: string, lastName
   const bookingId = await EventService.createBooking(eventId, firstName, lastName);
   return EventService.getBooking(bookingId);
 };
+
+export const cancelBooking = (bookingId: number) => {
+  return EventService.cancelBooking(bookingId);
+};

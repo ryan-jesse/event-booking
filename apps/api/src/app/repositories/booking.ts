@@ -32,3 +32,11 @@ export const getBooking = async (id: number): Promise<Booking> => {
 
   return bookingResult[0];
 }
+
+export const cancelBooking = async (id: number): Promise<void> => {
+  await db.table<Booking>("booking")
+    .where({
+      id,
+    })
+    .delete();
+}

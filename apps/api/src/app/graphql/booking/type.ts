@@ -40,3 +40,14 @@ export const BookingInput = new GraphQLInputObjectType({
     },
   }
 })
+
+export const CancelBookingInput = new GraphQLInputObjectType({
+  name: 'CancelBookingInput',
+  description: 'Booking delete type',
+  fields: {
+    id: {
+      type: GraphQLNonNull(GraphQLID),
+      description: 'The booking id to cancel'
+    }
+  }
+})
