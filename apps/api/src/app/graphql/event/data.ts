@@ -1,9 +1,9 @@
 import { EventService } from "../../services/event-service";
 
-export const getEvent = async (id: number) => {
+export const getEvent = (id: number) => {
   return EventService.getEvent(id);
 };
 
-export const getEvents = async () => {
+export const getEvents = () => {
   return EventService.getEvents();
 };
