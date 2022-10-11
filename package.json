@@ -5,7 +5,9 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "docker-start": "docker-compose -f apps/api/docker.yaml up",
+    "docker-stop": "docker-compose -f apps/api/docker.yaml stop"
   },
   "private": true,
   "dependencies": {
