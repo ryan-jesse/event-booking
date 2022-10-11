@@ -9,9 +9,57 @@ import {
   useNavigate
 } from "react-router-dom";
 
-import { cancelBooking } from "../apollo/mutations";
+import { cancelBooking, createBooking } from "../apollo/mutations";
 import { getEvent, getEvents } from "../apollo/queries";
 import "./app.module.scss";
+
+interface NewBookingFormProps {
+  onMakeBookingClick: (firstName: string, lastName: string) => void
+}
+
+export const NewBookingForm = (props: NewBookingFormProps) => {
+  const [form, setForm] = useState<{ firstName: string, lastName: string}>({ firstName: '', lastName: ''});
+
+  const updateFormState = (prop: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prevState) => {
+      return {
+        ...prevState,
+        [prop]: event.target.value
+      }
+    });
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!form.firstName || !form.lastName) {
+      alert('Both first and last name need to be provided');
+      return;
+    }
+
+    props.onMakeBookingClick(form.firstName, form.lastName);
+  }
+
+  return (
+    <div>
+      <form onSubmit={ handleSubmit }>
+        <div>
+          <label>
+            First name:
+            <input type="text" value={ form.firstName } onChange={ updateFormState('firstName') }/>
+          </label>
+        </div>
+        <div>
+          <label>
+            Last name:
+            <input type="text" value={ form.lastName } onChange={ updateFormState('lastName') }/>
+          </label>
+        </div>
+        <input type="submit" value="Make booking"></input>
+      </form>
+    </div>
+  )
+}
 
 interface BookingRowProps {
   id: number;
@@ -115,6 +163,14 @@ export const EventDetail = () => {
     loadEvent();
   }, []);
 
+  const onMakeBookingClick = (firstName: string, lastName: string) => {
+    if (event?.id) {
+      createBooking(Number(event.id), firstName, lastName).then(() => {
+        loadEvent();
+      });
+    }
+  }
+
   const onCancelBookingClick = (bookingId: number) => {
     cancelBooking(bookingId).then(() => {
       loadEvent();
@@ -127,10 +183,16 @@ export const EventDetail = () => {
       <div>Name: { event?.name }</div>
       <div>Capacity: { event?.capacity }</div>
       <div>Start Date Time: { event?.startDateTime }</div>
+      {(!event?.eventAtCapacity || true) &&
+      <div>
+        <h3>Book now</h3>
+        <NewBookingForm onMakeBookingClick={ onMakeBookingClick }></NewBookingForm>
+      </div>
+      }
       <div>
         <BookingList
           bookings={ bookings.bookings }
-          canCancelBookings={ event?.eventAtCapacity || true }
+          canCancelBookings={ bookings.canCancelBookings }
           onCancelBookingClick={ onCancelBookingClick }
         ></BookingList>
       </div>

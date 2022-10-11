@@ -27,6 +27,7 @@ export function getEvent(id: number) {
       query GetEvent {
         events {
           get(id: ${id}) {
+            id,
             name,
             capacity,
             startDateTime,

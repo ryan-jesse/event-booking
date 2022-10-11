@@ -16,3 +16,18 @@ export function cancelBooking(bookingId: number) {
     `,
     })
 }
+
+export function createBooking(eventId: number, firstName: string, lastName: string) {
+  return client
+    .mutate({
+      mutation: gql`
+      mutation {
+        booking {
+          create(input: { eventId: ${eventId}, firstName: "${firstName}", lastName: "${lastName}" }) {
+            id
+          }
+        }
+      }
+    `,
+    })
+}
