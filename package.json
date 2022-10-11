@@ -8,8 +8,8 @@
     "test": "nx test",
     "docker-start": "docker-compose -f apps/api/docker.yaml up",
     "docker-stop": "docker-compose -f apps/api/docker.yaml stop",
-    "migrate": "knex migrate:latest",
-    "seed": "knex seed:run",
+    "migrate": "knex --knexfile apps/api/src/app/db/knexfile.js migrate:latest",
+    "seed": "knex --knexfile apps/api/src/app/db/knexfile.js seed:run",
     "start-api": "npm run start api"
   },
   "private": true,
