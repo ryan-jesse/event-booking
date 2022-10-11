@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
+    "event-booking": "apps/event-booking",
+    "event-booking-e2e": "apps/event-booking-e2e"
+  }
+}
