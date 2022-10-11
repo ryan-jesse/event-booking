@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import { graphqlHTTP } from "express-graphql";
 
-import { root, schema } from "./graphql";
+import { schema } from "./graphql";
 import { ApiRouter, HealthCheckRouter } from "./routes";
 
 export const app = express();
@@ -14,7 +14,6 @@ function initialiseApp(app: Express) {
   app.use(express.json());
   app.use('/graphql', graphqlHTTP({
     schema: schema,
-    rootValue: root,
     graphiql: true,
   }));
 
