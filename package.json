@@ -7,13 +7,17 @@
     "build": "nx build",
     "test": "nx test",
     "docker-start": "docker-compose -f apps/api/docker.yaml up",
-    "docker-stop": "docker-compose -f apps/api/docker.yaml stop"
+    "docker-stop": "docker-compose -f apps/api/docker.yaml stop",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run",
     "start-api": "npm run start api"
   },
   "private": true,
   "dependencies": {
     "core-js": "^3.6.5",
     "express": "4.17.2",
+    "knex": "^2.3.0",
+    "pg": "^8.8.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "regenerator-runtime": "0.13.7",
