@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express, { Express } from 'express';
 import { graphqlHTTP } from "express-graphql";
 
@@ -12,6 +13,7 @@ function initialiseApp(app: Express) {
   ];
 
   app.use(express.json());
+  app.use(cors());
   app.use('/graphql', graphqlHTTP({
     schema: schema,
     graphiql: true,
