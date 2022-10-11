@@ -10,7 +10,8 @@
     "docker-stop": "docker-compose -f apps/api/docker.yaml stop",
     "migrate": "knex --knexfile apps/api/src/app/db/knexfile.js migrate:latest",
     "seed": "knex --knexfile apps/api/src/app/db/knexfile.js seed:run",
-    "start-api": "npm run start api"
+    "start-api": "npm run start api",
+    "start-app": "npm run start event-booking"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "pg": "^8.8.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "react-router-dom": "^6.4.2",
     "regenerator-runtime": "0.13.7",
     "tslib": "^2.0.0"
   },
