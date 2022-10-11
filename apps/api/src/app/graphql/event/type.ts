@@ -1,5 +1,7 @@
-import { GraphQLID, GraphQLInt, GraphQLString, GraphQLNonNull, GraphQLObjectType } from 'graphql'
+import { GraphQLID, GraphQLInt, GraphQLString, GraphQLNonNull, GraphQLObjectType, GraphQLBoolean } from 'graphql'
+
 import { ListEventBookings } from "../booking/query";
+import { canBookingsBeCancelled, getEventCapacity } from "./data";
 
 export const Event = new GraphQLObjectType({
   name: 'Event',
@@ -19,7 +21,21 @@ export const Event = new GraphQLObjectType({
     startDateTime: {
       type: GraphQLNonNull(GraphQLString),
       description: 'The event start date time',
-      resolve: (event) => event.start
+      resolve: (event) => new Date(event.start).toISOString()
+    },
+    canCancelBookings: {
+      type: GraphQLNonNull(GraphQLBoolean),
+      description: 'If bookings can be cancelled',
+      resolve: (event) => {
+        return canBookingsBeCancelled(new Date(event.start).toISOString());
+      }
+    },
+    maxCapacity: {
+      type: GraphQLNonNull(GraphQLInt),
+      description: 'The current maximum capacity for the event',
+      resolve: (event) => {
+        return getEventCapacity(new Date(event.start).toISOString(), event.capacity);
+      }
     },
     bookings: {
       ...ListEventBookings

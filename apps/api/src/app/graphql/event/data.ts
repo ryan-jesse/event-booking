@@ -7,3 +7,11 @@ export const getEvent = (id: number) => {
 export const getEvents = () => {
   return EventService.getEvents();
 };
+
+export const canBookingsBeCancelled = (startDateTime: string): boolean => {
+  return EventService.canCancelBooking(startDateTime);
+}
+
+export const getEventCapacity = (startDateTime: string, capacity: number): number => {
+  return EventService.calculateEventCapacity(startDateTime, capacity);
+}
