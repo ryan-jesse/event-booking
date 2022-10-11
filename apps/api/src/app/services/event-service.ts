@@ -1,5 +1,5 @@
 import { getEvents, getEvent, Event } from "../repositories/event";
-import { Booking, getBookingsByEvent } from "../repositories/booking";
+import { Booking, getBooking, getBookingsByEvent, insertBooking } from "../repositories/booking";
 
 export class EventService {
   static getEvents(): Promise<Event[]> {
@@ -12,5 +12,14 @@ export class EventService {
 
   static getBookings(eventId: number): Promise<Booking[]> {
     return getBookingsByEvent(eventId);
+  }
+
+  static async createBooking(eventId: number, firstName: string, lastName: string): Promise<number> {
+    const { id } = await insertBooking(eventId, firstName, lastName);
+    return id;
+  }
+
+  static getBooking(id: number): Promise<Booking> {
+    return getBooking(id);
   }
 }

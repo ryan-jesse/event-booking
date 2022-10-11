@@ -1,5 +1,10 @@
 import { EventService } from "../../services/event-service";
 
-export const getBookings = async (eventId: number) => {
+export const getBookings = (eventId: number) => {
   return EventService.getBookings(eventId);
+};
+
+export const createBooking = async (eventId: number, firstName: string, lastName: string) => {
+  const bookingId = await EventService.createBooking(eventId, firstName, lastName);
+  return EventService.getBooking(bookingId);
 };

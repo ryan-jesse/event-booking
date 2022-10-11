@@ -1,4 +1,4 @@
-import { GraphQLID, GraphQLString, GraphQLNonNull, GraphQLObjectType } from 'graphql'
+import { GraphQLID, GraphQLString, GraphQLNonNull, GraphQLObjectType, GraphQLInputObjectType } from 'graphql'
 
 export const Booking = new GraphQLObjectType({
   name: 'Booking',
@@ -21,3 +21,22 @@ export const Booking = new GraphQLObjectType({
     }
   })
 });
+
+export const BookingInput = new GraphQLInputObjectType({
+  name: 'BookingInput',
+  description: 'Booking create type',
+  fields: {
+    eventId: {
+      type: GraphQLNonNull(GraphQLID),
+      description: 'The event id which the booking relates to'
+    },
+    firstName: {
+      type: GraphQLNonNull(GraphQLString),
+      description: 'The booking contacts first name'
+    },
+    lastName: {
+      type: GraphQLNonNull(GraphQLString),
+      description: 'The booking contacts last name'
+    },
+  }
+})
