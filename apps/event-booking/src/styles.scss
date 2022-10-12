@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 50%
+}
+
+table, th, td {
+  border: 1px solid;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+}
+
+.submit-booking-input {
+  margin-top: 1rem;
+}
+
+.event-detail-label, .booking-form-label {
+  font-weight: bold;
+}
+
+.event-detail-label::after {
+  content: ":";
+}
+
+.form-row {
+  width: 40%;
+  padding-bottom: 5px;
+}
+
+.booking-form-label {
+  display: flex;
+  justify-content: space-between;
+}

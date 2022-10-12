@@ -18,7 +18,7 @@ export const BookingRow = (props: BookingRowProps) => {
           disabled={ !props.canCancelBookings }
           onClick={ () => props.onCancelBookingClick(props.id) }
         >
-          Cancel booking
+          Cancel
         </button>
       </td>
     </tr>

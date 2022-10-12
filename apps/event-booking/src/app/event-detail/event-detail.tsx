@@ -59,10 +59,16 @@ export const EventDetail = () => {
 
   return (
     <div>
-      <h1>Event Detail ({ id })</h1>
-      <div>Name: { event?.name }</div>
-      <div>Capacity: { event?.capacity }</div>
-      <div>Start Date Time: { event?.startDateTime }</div>
+      <h1>Event Detail</h1>
+      <div>
+        <span className="event-detail-label">Name</span> { event?.name }
+      </div>
+      <div>
+        <span className="event-detail-label">Capacity</span> { event?.capacity }
+      </div>
+      <div>
+        <span className="event-detail-label">Start Date Time</span> { event?.startDateTime }
+      </div>
       {(!event?.eventAtCapacity || true) &&
         <div>
           <h3>Book now</h3>

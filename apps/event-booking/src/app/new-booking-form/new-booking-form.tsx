@@ -30,19 +30,19 @@ export const NewBookingForm = (props: NewBookingFormProps) => {
   return (
     <div>
       <form onSubmit={ handleSubmit }>
-        <div>
-          <label>
+        <div className="form-row">
+          <label className="booking-form-label">
             First name:
             <input type="text" value={ form.firstName } onChange={ updateFormState('firstName') }/>
           </label>
         </div>
-        <div>
-          <label>
+        <div className="form-row">
+          <label className="booking-form-label">
             Last name:
             <input type="text" value={ form.lastName } onChange={ updateFormState('lastName') }/>
           </label>
         </div>
-        <input type="submit" value="Make booking"></input>
+        <input className="submit-booking-input" type="submit" value="Make booking"></input>
       </form>
     </div>
   )
