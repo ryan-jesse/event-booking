@@ -41,12 +41,12 @@ export class EventService {
     return Math.round(startDate < todayPlus10Days ? capacity : capacity * 1.1);
   }
 
-  static canCancelBooking(startDateTime: string) {
+  static canCancelBooking(startDateTime: string): boolean {
     const startMinus2Days = moment(startDateTime).subtract(48, "hours");
     return moment() < startMinus2Days;
   }
 
-  static cancelBooking(bookingId: number) {
+  static cancelBooking(bookingId: number): Promise<void> {
     return cancelBooking(bookingId);
   }
 

@@ -12,6 +12,6 @@ export const canBookingsBeCancelled = (startDateTime: string): boolean => {
   return EventService.canCancelBooking(startDateTime);
 }
 
-export const getEventCapacity = (startDateTime: string, capacity: number): number => {
+export const getMaxEventCapacity = (startDateTime: string, capacity: number): number => {
   return EventService.calculateEventCapacity(startDateTime, capacity);
 }
