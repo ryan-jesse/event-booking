@@ -35,10 +35,10 @@ export class EventService {
   }
 
   static calculateEventCapacity(startDateTime: string, capacity: number): number {
-    const startDate = moment(startDateTime).date();
-    const todayPlus10Days = moment().add(10, 'days').date();
+    const startDate = moment(startDateTime);
+    const todayPlus10Days = moment().add(10, 'days');
 
-    return Math.round(startDate < todayPlus10Days ? capacity : capacity * 1.1);
+    return Math.round(startDate.isBefore(todayPlus10Days, 'date') ? capacity : capacity * 1.1);
   }
 
   static canCancelBooking(startDateTime: string): boolean {
