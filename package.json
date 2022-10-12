@@ -11,6 +11,7 @@
     "migrate": "knex --knexfile apps/api/src/app/db/knexfile.js migrate:latest",
     "seed": "knex --knexfile apps/api/src/app/db/knexfile.js seed:run",
     "start-api": "npm run start api",
+    "test-api": "nx run api:test",
     "start-app": "npm run start event-booking"
   },
   "private": true,
