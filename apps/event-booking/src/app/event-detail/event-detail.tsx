@@ -22,6 +22,7 @@ export const EventDetail = () => {
   const { id } = useParams();
   const [event, setEvent] = useState<Event>(new Event());
   const [bookings, setBookings] = useState<BookingListState>({ list: [], canCancelBookings: true });
+  const [bookingError, setBookingError] = useState<string>('');
 
   const loadEvent = () => {
     getEvent(Number(id)).then((response) => {
@@ -44,8 +45,11 @@ export const EventDetail = () => {
   }, []);
 
   const onMakeBookingClick = (firstName: string, lastName: string) => {
+    setBookingError('');
     createBooking(Number(event.id), firstName, lastName).then(() => {
       loadEvent();
+    }).catch((e) => {
+      setBookingError(e.message);
     });
   }
 
@@ -72,6 +76,9 @@ export const EventDetail = () => {
           <h3>Book now</h3>
           <NewBookingForm onMakeBookingClick={ onMakeBookingClick }></NewBookingForm>
         </div>
+      }
+      {bookingError &&
+        <p className="error-message">{bookingError}</p>
       }
       <div>
         <BookingList
