@@ -18,7 +18,7 @@ export class EventService {
 
   static async createBooking(eventId: number, firstName: string, lastName: string): Promise<number> {
     const event = await EventService.getEvent(eventId);
-    const eventStart = new Date(event.start);
+    const eventStart = new Date(event.startDateTimeUtc);
     const bookings = await EventService.getBookings(eventId);
 
     if (!EventService.eventHasCapacity(eventStart.toISOString(), event.capacity, bookings.length)) {

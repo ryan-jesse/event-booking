@@ -21,20 +21,20 @@ export const Event = new GraphQLObjectType({
     startDateTime: {
       type: GraphQLNonNull(GraphQLString),
       description: 'The event start date time',
-      resolve: (event) => new Date(event.start).toISOString()
+      resolve: (event) => new Date(event.startDateTimeUtc).toISOString()
     },
     canCancelBookings: {
       type: GraphQLNonNull(GraphQLBoolean),
       description: 'If bookings can be cancelled',
       resolve: (event) => {
-        return canBookingsBeCancelled(new Date(event.start).toISOString());
+        return canBookingsBeCancelled(new Date(event.startDateTimeUtc).toISOString());
       }
     },
     maxCapacity: {
       type: GraphQLNonNull(GraphQLInt),
       description: 'The current maximum capacity for the event',
       resolve: (event) => {
-        return getMaxEventCapacity(new Date(event.start).toISOString(), event.capacity);
+        return getMaxEventCapacity(new Date(event.startDateTimeUtc).toISOString(), event.capacity);
       }
     },
     bookings: {
