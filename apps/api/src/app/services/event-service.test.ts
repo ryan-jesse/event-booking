@@ -75,4 +75,39 @@ describe('EventService', () => {
       expect(result).toEqual(false)
     });
   });
+
+  describe('canCancelBooking', () => {
+    it('should allow for bookings to be cancelled if start time greater is than 48 hours from now', () => {
+      // Arrange
+      const startDateTime = moment().add(49, 'hours');
+
+      // Act
+      const result = EventService.canCancelBooking(String(startDateTime.toISOString()));
+
+      // Assert
+      expect(result).toEqual(true);
+    });
+
+    it('should not allow for bookings to be cancelled if start time is 48 hours from now', () => {
+      // Arrange
+      const startDateTime = moment().add(48, 'hours');
+
+      // Act
+      const result = EventService.canCancelBooking(String(startDateTime.toISOString()));
+
+      // Assert
+      expect(result).toEqual(false);
+    });
+
+    it('should not allow for bookings to be cancelled if start time is less than 48 hours from now', () => {
+      // Arrange
+      const startDateTime = moment().add(48, 'hours');
+
+      // Act
+      const result = EventService.canCancelBooking(String(startDateTime.toISOString()));
+
+      // Assert
+      expect(result).toEqual(false);
+    });
+  });
 });

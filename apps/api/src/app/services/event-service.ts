@@ -43,7 +43,7 @@ export class EventService {
 
   static canCancelBooking(startDateTime: string): boolean {
     const startMinus2Days = moment(startDateTime).subtract(48, "hours");
-    return moment() < startMinus2Days;
+    return moment().isBefore(startMinus2Days, 'hours');
   }
 
   static cancelBooking(bookingId: number): Promise<void> {
