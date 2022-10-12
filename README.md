@@ -4,6 +4,49 @@
 
 This project was generated using [Nx](https://nx.dev).
 
+## Prerequisites
+- Node installed (>= v16.13.0)
+- Docker installed (docker compose v1)
+
+## How to run
+1. `npm install`
+1. `npm run docker-start` to bring up the postgres instance
+2. `npm run migrate` to apply all DB migrations
+3. `npm run seed` to seed the initial event data
+4. `npm run start-apps` to start both the api and the React app
+
+...then browse to http://localhost:4200/
+
+### Testing
+5. `npm run test-api`
+
+## Assumptions
+- Was not clear if this was to be used by the public or as an internal tool used by a business managing events. For the prototype, I chose to go with the latter. Implications of this is that the API has no context of the user accessing it, and as a result shows all bookings for an event, rather than a list of booking specific to the user who made them. 
+- No details were specified on what represented a 'booking'. For the prototype, I chose to capture first name and last name as a reference for whom the booking belonged to.
+- The scope mentioned that 'users are able to book a seat' (singular), the prototype works on the basis that a booking is limited to a single person/seat.
+- The scope mentioned displaying a message in the case that the user goes to book but the booking fails to pass event capacity business rules. However, I chose to hide the booking form once the max capacity was reached in an attempt to reduce user frustration.
+
+## Key design considerations
+- Nx was chosen to help reduce time spent in setting up the scaffold for the prototype. It should also assist with maintainability as the application grows through the likes of libraries and associated tooling + caching abilities.
+- Repository pattern was chosen to separate the data access layer. This will assist in testing as those repositories can be mocked.
+- Business logic was split into its own service. This allows the logic to be tested once and shared amongst code.
+- Typescript was used on both front end and backend to provide type security as the application grows
+- Express was used as it will allow us to support any other APIs that may not be suitable for graphql
+- Graphql queries/mutations separated by entity in the aim to assist with maintainability of solution
+- Before proceeding beyond the prototype phase, the following questions should be considered:
+  - Is there any appetite to support multiple seats per booking? This would require a change to the database
+  - Is there any other information that needs to be associated with a booking? Contact number, email etc
+  - Do cancelled bookings need to be retained at all?
+
+## Compromises/Tech-Debts
+- Add repository mocks to better support testing of the EventService.createBooking function. Currently, the business logic is tested separately and is open to breaking changes in the createBooking function.
+- Graphql caching was disabled on the front end to aid in the speed of the prototype development. A caching strategy can be decided upon and implemented as the app scales.
+- Add appropriate database indexes. As we commonly look up bookings based on eventId, adding an index will help with performance as the application scales.
+- The bookings listed under the event detail page only refresh based on the actions of the user. If deployed and used by multiple people concurrently, there is the potential for them to become out of sync with the latest bookings. Currently, the business logic checks on the server are used as a safe guard and will prevent invalid scenarios. In the future, this could be improved through graphql subscriptions or polling if it is deemed important enough.
+- When adding or removing bookings, the event and bookings are re-fetched. This could be slightly improved by only re-fetching the booking for the event however as it currently stands, it is not an expensive request.
+- Use of any with GraphQLFieldConfig type. Unsure about what types it is expecting and left it as due to time constraints. Research required to resolve.
+- Use of styles.scss for global styling. Could be broken down to component level styles where suitable.
+
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
 🔎 **Smart, Fast and Extensible Build System**

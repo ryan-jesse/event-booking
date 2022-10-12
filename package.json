@@ -10,6 +10,7 @@
     "docker-stop": "docker-compose -f apps/api/docker.yaml stop",
     "migrate": "knex --knexfile apps/api/src/app/db/knexfile.js migrate:latest",
     "seed": "knex --knexfile apps/api/src/app/db/knexfile.js seed:run",
+    "start-apps": "nx run-many --target=serve --projects=api,event-booking",
     "start-api": "npm run start api",
     "test-api": "nx run api:test",
     "start-app": "npm run start event-booking"
