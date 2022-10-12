@@ -1,30 +1,29 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import { getEvents } from "../../apollo/queries";
 import { EventRow } from "../event-row/event-row";
 
-export interface Event {
-  id: number;
-  name: string;
-  capacity: number;
-  startDateTime: string;
-  eventAtCapacity?: boolean;
+export class Event {
+  constructor(
+    public id: number = 0,
+    public name: string = '',
+    public capacity: number = 0,
+    public startDateTime: string = '',
+    public eventAtCapacity: boolean | null = null) {}
 }
 
-interface EventListState {
-  events: Event[]
-}
+type EventListState = Event[];
 
 export const EventList = () => {
-  const [events, setEvents] = useState<EventListState>({ events: [] });
+  const [events, setEvents] = useState<EventListState>( [] );
 
   useEffect(() => {
     getEvents().then((response) => {
-      setEvents({ events: response.data.events.list })
+      setEvents(response.data.events.list)
     });
   }, []);
 
-  const eventRows = events.events.map((event: Event) => {
+  const eventRows = events.map((event: Event) => {
     const { id, name, capacity, startDateTime} = event;
     return (
       <EventRow key={ id } id={ id } name={ name } capacity={ capacity } startDateTime={ startDateTime }></EventRow>

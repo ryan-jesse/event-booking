@@ -4,8 +4,13 @@ interface NewBookingFormProps {
   onMakeBookingClick: (firstName: string, lastName: string) => void
 }
 
+class FormState {
+  firstName = '';
+  lastName = '';
+}
+
 export const NewBookingForm = (props: NewBookingFormProps) => {
-  const [form, setForm] = useState<{ firstName: string, lastName: string}>({ firstName: '', lastName: ''});
+  const [form, setForm] = useState<FormState>(new FormState());
 
   const updateFormState = (prop: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prevState) => {
@@ -25,6 +30,7 @@ export const NewBookingForm = (props: NewBookingFormProps) => {
     }
 
     props.onMakeBookingClick(form.firstName, form.lastName);
+    setForm(new FormState());
   }
 
   return (

@@ -14,14 +14,14 @@ export interface Booking {
 }
 
 interface BookingListState {
-  bookings: Booking[];
+  list: Booking[];
   canCancelBookings: boolean;
 }
 
 export const EventDetail = () => {
   const { id } = useParams();
-  const [event, setEvent] = useState<Event | null>(null);
-  const [bookings, setBookings] = useState<BookingListState>({ bookings: [], canCancelBookings: true });
+  const [event, setEvent] = useState<Event>(new Event());
+  const [bookings, setBookings] = useState<BookingListState>({ list: [], canCancelBookings: true });
 
   const loadEvent = () => {
     getEvent(Number(id)).then((response) => {
@@ -35,7 +35,7 @@ export const EventDetail = () => {
         startDateTime,
         eventAtCapacity
       });
-      setBookings({ bookings, canCancelBookings });
+      setBookings({ list: bookings, canCancelBookings });
     });
   }
 
@@ -44,11 +44,9 @@ export const EventDetail = () => {
   }, []);
 
   const onMakeBookingClick = (firstName: string, lastName: string) => {
-    if (event?.id) {
-      createBooking(Number(event.id), firstName, lastName).then(() => {
-        loadEvent();
-      });
-    }
+    createBooking(Number(event.id), firstName, lastName).then(() => {
+      loadEvent();
+    });
   }
 
   const onCancelBookingClick = (bookingId: number) => {
@@ -61,15 +59,15 @@ export const EventDetail = () => {
     <div>
       <h1>Event Detail</h1>
       <div>
-        <span className="event-detail-label">Name</span> { event?.name }
+        <span className="event-detail-label">Name</span> { event.name }
       </div>
       <div>
-        <span className="event-detail-label">Capacity</span> { event?.capacity }
+        <span className="event-detail-label">Capacity</span> { event.capacity }
       </div>
       <div>
-        <span className="event-detail-label">Start Date Time</span> { event?.startDateTime }
+        <span className="event-detail-label">Start Date Time</span> { event.startDateTime }
       </div>
-      {(!event?.eventAtCapacity || true) &&
+      {(!event.eventAtCapacity) &&
         <div>
           <h3>Book now</h3>
           <NewBookingForm onMakeBookingClick={ onMakeBookingClick }></NewBookingForm>
@@ -77,7 +75,7 @@ export const EventDetail = () => {
       }
       <div>
         <BookingList
-          bookings={ bookings.bookings }
+          bookings={ bookings.list }
           canCancelBookings={ bookings.canCancelBookings }
           onCancelBookingClick={ onCancelBookingClick }
         ></BookingList>
